@@ -50,6 +50,8 @@
 (boolean) @constant
 (integer) @constant
 
+(comment) @comment
+
 (parameter_name) @variable.parameter
 
 ; "with" @function

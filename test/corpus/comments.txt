@@ -1,0 +1,27 @@
+=========
+Comments
+=========
+
+// line comment
+package my.package;
+
+/* block
+   comment */
+component MyComponent {
+  i32 /* inline block comment */ field_a; // end of line comment
+}
+
+---
+
+(source_file
+  (comment)
+  (package_statement
+    name: (package_identifier))
+  (comment)
+  (component_statement
+    name: (declaration_identifier)
+    (field_statement
+      field_type: (builtin_field_type)
+      (comment)
+      field_name: (declaration_identifier))
+    (comment)))

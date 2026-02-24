@@ -7,7 +7,13 @@ function commaSep(rule) {
 }
 
 module.exports = grammar({
-	name : 'ecsact',
+	name: 'ecsact',
+
+	extras: $ => [
+		$.comment,
+		/[\s\n]/,
+	],
+
 	rules: {
 		source_file: $ => seq(
 			// TODO(zaucy): Package statements are not optional in an Ecsact file
@@ -15,6 +21,18 @@ module.exports = grammar({
 			repeat($.import_statement),
 			repeat($._declaration_statement),
 		),
+
+		comment: $ => token(choice(
+			seq('//', /.*/),
+			seq(
+				'/*',
+				repeat(choice(
+					/[^*]/,
+					seq('*', /[^/]/),
+				)),
+				'*/',
+			),
+		)),
 
 		package_statement: $ => seq(
 			optional('main'),
@@ -37,7 +55,7 @@ module.exports = grammar({
 			$.action_statement,
 		),
 
-		notify_option: $ =>  /[a-zA-Z][a-zA-Z0-9_]+/,
+		notify_option: $ => /[a-zA-Z][a-zA-Z0-9_]+/,
 
 		_notify_shorthand: $ => seq(
 			'notify',
@@ -262,4 +280,3 @@ module.exports = grammar({
 		declaration_lookup: () => /[a-zA-Z][a-zA-Z0-9_\.]*/,
 	},
 });
-

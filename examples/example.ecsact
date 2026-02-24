@@ -1,26 +1,31 @@
+// main package declaration
 main package example.main.component.system.pkg;
 
 import other.package;
-import cool;
+import cool; // import with comment
 
+/**
+ * damage type enum
+ */
 enum DamageType {
 	FIRE = 0;
 	ROCK = 1;
 }
 
 component Health {
-	f32 value;
+	f32 value; // current health value
 }
 
 component Attacking {
 	DamageType damage;
-	entity target;
+	entity target; /* attacking target */
 }
 
 component Poisoned {
 	f32 potency;
 }
 
+// system for poison damage
 system PoisonDamage {
 	readwrite Health;
 	readonly Poisoned;
@@ -56,6 +61,7 @@ component BlockAttribute {
 	f32 block_value;
 }
 
+// complex system with parameters
 system BlockDamage(parallel, lazy: 2) {
 	readwrite Health;
 	readonly BlockAttribute;
